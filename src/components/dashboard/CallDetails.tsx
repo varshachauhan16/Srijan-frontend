@@ -1,11 +1,12 @@
 import SectionCard from "./SectionCard";
+import { Link } from "react-router-dom";
 import {
   PhoneIncoming, PhoneOutgoing, FolderOpen, Database, Upload,
   PhoneCall, TrendingUp, CalendarClock, CalendarDays, AlertTriangle, CheckCircle2,
 } from "lucide-react";
 
 const tiles = [
-  { label: "All Leads", icon: FolderOpen, style: "bg-[image:var(--gradient-pink)]", count: 0 },
+  { label: "All Leads", icon: FolderOpen, style: "bg-[image:var(--gradient-pink)]", count: 0, to: "/ce/all-leads" },
   { label: "C_FRESH", icon: Database, style: "bg-gradient-to-br from-[hsl(272_45%_50%)] to-[hsl(280_45%_45%)]", count: 0 },
   { label: "New Status Lead", icon: Upload, style: "bg-gradient-to-br from-[hsl(345_55%_45%)] to-[hsl(355_55%_40%)]", count: 0 },
   { label: "Call Back", icon: PhoneCall, style: "bg-[image:var(--gradient-green)]", count: 0 },
@@ -35,13 +36,17 @@ const CallDetails = () => {
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {tiles.map((t) => (
-          <button key={t.label} className={`${t.style} relative text-white rounded-md py-3 px-3 text-sm font-semibold flex items-center gap-2 shadow hover:-translate-y-0.5 transition`}>
+          <Link
+            key={t.label}
+            to={(t as { to?: string }).to ?? "#"}
+            className={`${t.style} relative text-white rounded-md py-3 px-3 text-sm font-semibold flex items-center gap-2 shadow hover:-translate-y-0.5 transition`}
+          >
             <t.icon className="h-4 w-4" />
             <span className="truncate">{t.label}</span>
             <span className="absolute -top-2 -right-2 bg-[hsl(0_75%_55%)] text-white text-[10px] h-5 min-w-5 px-1 rounded-full flex items-center justify-center shadow">
               {t.count}
             </span>
-          </button>
+          </Link>
         ))}
       </div>
     </SectionCard>
